@@ -1,0 +1,17 @@
+{
+  "name": "gsheet-tagfetch",
+  "version": "0.0.1",
+  "description": "Grabs docker image tags from a google sheet",
+  "main": "gsheet-tagfetch.js",
+  "scripts": {
+    "start": "node gsheet-tagfetch.js"
+  },
+  "engines": {
+    "node": ">=4.7.2"
+  },
+  "author": "Arron McLaughlin <a.mclaughlin@auckland.ac.nz>",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "googleapis": "^27.0.0"
+  }
+}

@@ -1,0 +1,10 @@
+version: '3.0'
+services:
+  tagfetch:
+    build:
+       context: ./gsheet-tagfetch
+       args:
+           - http_proxy
+           - https_proxy
+    volumes: 
+      ../config/gsheet-privatekey.json:/app/privatekey.json
