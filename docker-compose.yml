@@ -8,3 +8,5 @@ services:
            - https_proxy
     volumes: 
       ../config/gsheet-privatekey.json:/app/privatekey.json
+    environment:
+      - SPREADSHEET_ID
