@@ -7,6 +7,9 @@ services:
            - http_proxy
            - https_proxy
     volumes: 
-      - ../config/gsheet-privatekey.json:/app/privatekey.json
+      - ${DATA_DIR}/config/gsheet-privatekey.json:/app/privatekey.json
     environment:
       - SPREADSHEET_ID
+      - HOST_HOSTNAME
+      - HTTP_PROXY_IP
+      - HTTP_PROXY_PORT
