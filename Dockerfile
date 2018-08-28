@@ -11,10 +11,12 @@ RUN         apt-get update && apt-get install -y proxychains
 COPY        package.json .
 RUN         npm install
 
+# Required to work around google api auth issue:
+# https://github.com/google/google-api-nodejs-client/issues/998
+
 COPY        proxychains.conf .
-COPY        run.sh .
+COPY        *.sh .
 COPY        *.js .
-RUN         chmod +x run.sh
+RUN         chmod +x *.sh
 
-ENTRYPOINT  tail -f /dev/null
-
+ENTRYPOINT  ./setup.sh && tail -f /dev/null
