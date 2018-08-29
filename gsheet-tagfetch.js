@@ -12,7 +12,7 @@ let jwtClient = new google.auth.JWT(
 jwtClient.authorize((err, tokens) => {
     if (err) {
       console.error(err);
-      return;
+      process.exit(1)
     } else {
 
       const sheets = google.sheets({version: 'v4', auth: jwtClient});
@@ -23,6 +23,7 @@ jwtClient.authorize((err, tokens) => {
       }, (err, response) => {
         if (err) {
           console.error(err);
+          process.exit(1);
         } else {
           const dataRows = response.data.values.slice(1, response.data.values.length)       
           for (const row of dataRows) {

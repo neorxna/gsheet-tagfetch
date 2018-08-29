@@ -19,4 +19,4 @@ COPY        *.sh .
 COPY        *.js .
 RUN         chmod +x *.sh
 
-ENTRYPOINT  ./setup.sh && tail -f /dev/null
+ENTRYPOINT  exec ./setup.sh && exec tail -f /dev/null
