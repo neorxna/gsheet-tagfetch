@@ -1,7 +1,9 @@
 const {google} = require('googleapis');
 const privatekey = require("./privatekey.json");
+const os = require('os');
 
-const hostname = process.env.HOST_HOSTNAME
+const hostname = process.env.HOST_HOSTNAME || os.hostname()
+const prefix = process.argv[2] || 'TAG_'
 
 let jwtClient = new google.auth.JWT(
     privatekey.client_email,
@@ -27,7 +29,7 @@ jwtClient.authorize((err, tokens) => {
         } else {
           const dataRows = response.data.values.slice(1, response.data.values.length)
           for (const row of dataRows) {
-            console.log(`export TAG_${row[0].toUpperCase()}=${row[1]}`)
+            console.log(`${prefix}${row[0].toUpperCase()}=${row[1]}`)
           }
         }
       })
