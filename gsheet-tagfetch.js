@@ -25,7 +25,7 @@ jwtClient.authorize((err, tokens) => {
           console.error(err);
           process.exit(1);
         } else {
-          const dataRows = response.data.values.slice(1, response.data.values.length)       
+          const dataRows = response.data.values.slice(1, response.data.values.length)
           for (const row of dataRows) {
             console.log(`export TAG_${row[0].toUpperCase()}=${row[1]}`)
           }
