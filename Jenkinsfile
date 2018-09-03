@@ -21,7 +21,7 @@ pipeline {
             steps {
 
                 sh '''
-                    export tags=docker-compose                \\
+                    docker-compose                            \\
                         -f docker-compose.yml                 \\
                         run --sheet ${params.target_hostname} \\
                         -T --rm --no-deps tagfetch            \\
