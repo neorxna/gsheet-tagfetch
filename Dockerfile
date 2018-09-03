@@ -19,4 +19,4 @@ COPY        *.sh .
 COPY        *.js .
 RUN         chmod +x *.sh
 
-ENTRYPOINT  exec ./run.sh
+ENTRYPOINT  ./start.sh

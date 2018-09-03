@@ -4,7 +4,7 @@
   "description": "Grabs docker image tags from a google sheet",
   "main": "gsheet-tagfetch.js",
   "scripts": {
-    "start": "node gsheet-tagfetch.js"
+    "start": "./start.sh"
   },
   "engines": {
     "node": ">=4.7.2"
@@ -12,6 +12,8 @@
   "author": "Arron McLaughlin <a.mclaughlin@auckland.ac.nz>",
   "dependencies": {
     "chalk": "^1.1.3",
-    "googleapis": "^27.0.0"
+    "commander": "^2.17.1",
+    "googleapis": "^33.0.0",
+    "moment": "^2.22.2"
   }
 }

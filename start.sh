@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -z "$HTTP_PROXY_IP" ] && [ -z "$HTTP_PROXY_PORT" ]; then
-  node ./gsheet-tagfetch.js "$@"
+  exec node gsheet-tagfetch.js $@
 else
   echo "http ${HTTP_PROXY_IP} ${HTTP_PROXY_PORT}" >> ./proxychains.conf
-  proxychains node ./gsheet-tagfetch.js "$@" | tail -n +2
+  exec proxychains node gsheet-tagfetch.js $@ | tail -n +2 # drop proxychains noise
 fi
