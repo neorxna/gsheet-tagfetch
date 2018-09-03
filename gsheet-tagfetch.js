@@ -1,14 +1,13 @@
 'use strict'
 
 const {google} = require('googleapis')
-const privatekey = require("./privatekey.json")
 const os = require('os')
 const moment = require('moment')
 const program = require('commander')
 
 program
 .version('0.0.1')
-.usage('[options] <content_type>')
+.usage('[options]')
 .option('-s, --sheet [sheet name]', "sheet name (defaults to own hostname)")
 .option('-i, --spreadsheet-id [id]', "spreadsheet ID (or supply SPREADSHEET_ID in environment)")
 .option('-c, --config-sheet-name [sheet name]', "name of the sheet to provide config (defaults to \"'config'\")")
@@ -32,12 +31,12 @@ if (!spreadsheetId) {
   process.exit(1)
 }
 
-const skipRows = (sheet, skipRows) => {
+function skipRows (sheet, skipRows) {
   const values = sheet.data.values
   return values.slice(skipRows, values.length)
 }
 
-const parseConfig = (sheet) => {
+function parseConfig (sheet) {
   try {
     let config = {} 
     for (const row of skipRows(sheet, 1)) {
@@ -52,7 +51,8 @@ const parseConfig = (sheet) => {
 }
 
 const main = async () => {
-
+  const usingEnvCreds = typeof process.env.GOOGLE_APPLICATION_CREDENTIALS !== 'undefined'
+  const privatekey = usingEnvCreds ? null : require("./privatekey.json")
   const jwtClient = new google.auth.JWT(
     privatekey.client_email,
     null,
