@@ -4,7 +4,7 @@ pipeline {
 
     parameters {
         string(
-            name: 'target_hostname',
+            name: 'TARGET_HOSTNAME',
             defaultValue:"",
             description: "Name of the host to update tags for."
         )
@@ -20,11 +20,11 @@ pipeline {
 
             steps {
 
-                sh 'echo ${params.target_hostname}'
+                sh 'echo ${params.TARGET_HOSTNAME}'
                 sh '''
                     docker-compose                            \\
                         -f docker-compose.yml                 \\
-                        run --sheet ${params.target_hostname} \\
+                        run --sheet ${params.TARGET_HOSTNAME} \\
                         -T --rm --no-deps tagfetch            \\
                     > tags.env
                     '''
@@ -41,7 +41,7 @@ pipeline {
                 build(
                     job: 'ansible-deploy',
                     parameters: [
-                        string(name: 'TARGET_HOST', value: '${params.target_hostname}' ),
+                        string(name: 'HOST', value: '${params.TARGET_HOSTNAME}' ),
                         string(name: 'tags', value: tags)
                     ]
                 )
