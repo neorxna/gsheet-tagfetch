@@ -18,30 +18,33 @@ pipeline {
                 GOOGLE_APPLICATION_CREDENTIALS = credentials('gsheet-tagfetch-google-creds')
             }
 
-            sh '''
-                export tags=docker-compose                \\
-                    -f docker-compose.yml                 \\
-                    run --sheet ${params.target_hostname} \\
-                    -T --rm --no-deps tagfetch            \\
-                > tags.env                                \\
-                '''
+            steps {
 
-            script { 
-                tags = readFile('tags.env')
+                sh '''
+                    export tags=docker-compose                \\
+                        -f docker-compose.yml                 \\
+                        run --sheet ${params.target_hostname} \\
+                        -T --rm --no-deps tagfetch            \\
+                    > tags.env                                \\
+                    '''
+
+                script { 
+                    tags = readFile('tags.env')
+                }
             }
 
         }
 
         stage('Trigger downstream deploy job') {
-            
-            build(
-                job: 'ansible-deploy',
-                parameters: [
-                    string(name: 'TARGET_HOST', value: '${params.target_hostname}' ),
-                    string(name: 'tags', value: tags)
-                ]
-            )
-
+            steps {
+                build(
+                    job: 'ansible-deploy',
+                    parameters: [
+                        string(name: 'TARGET_HOST', value: '${params.target_hostname}' ),
+                        string(name: 'tags', value: tags)
+                    ]
+                )
+            }
         }
     }
 }
