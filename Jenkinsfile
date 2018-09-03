@@ -21,13 +21,13 @@ pipeline {
             steps {
 
                 sh "echo ${params.TARGET_HOSTNAME}"
-                sh '''#!/bin/bash -xe
-                    docker-compose                            \\
-                        -f docker-compose.yml                 \\
-                        run --sheet ${params.TARGET_HOSTNAME} \\
-                        -T --rm --no-deps tagfetch            \\
-                    > tags.env
-                    '''
+                sh """
+                   docker-compose                            \\
+                       -f docker-compose.yml                 \\
+                       run --sheet ${params.TARGET_HOSTNAME} \\
+                       -T --rm --no-deps tagfetch            \\
+                   > tags.env
+                   """
 
                 script { 
                     tags = readFile('tags.env')
