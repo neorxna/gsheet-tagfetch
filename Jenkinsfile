@@ -24,8 +24,8 @@ pipeline {
                 sh """
                    docker-compose                            \\
                        -f docker-compose.yml                 \\
-                       run --sheet ${params.TARGET_HOSTNAME} \\
-                       -T --rm --no-deps tagfetch            \\
+                       run -T --rm --no-deps tagfetch        \\
+                       --sheet ${params.TARGET_HOSTNAME}     \\
                    > tags.env
                    """
 
