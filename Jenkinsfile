@@ -20,8 +20,8 @@ pipeline {
 
             steps {
 
-                sh 'echo ${params.TARGET_HOSTNAME}'
-                sh '''
+                sh "echo ${params.TARGET_HOSTNAME}"
+                sh '''#!/bin/bash -xe
                     docker-compose                            \\
                         -f docker-compose.yml                 \\
                         run --sheet ${params.TARGET_HOSTNAME} \\
@@ -41,7 +41,7 @@ pipeline {
                 build(
                     job: 'ansible-deploy',
                     parameters: [
-                        string(name: 'HOST', value: '${params.TARGET_HOSTNAME}' ),
+                        string(name: 'HOST', value: "${params.TARGET_HOSTNAME}" ),
                         string(name: 'tags', value: tags)
                     ]
                 )
